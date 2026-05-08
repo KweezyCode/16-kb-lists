@@ -33,14 +33,22 @@ jobs:
         run: |
           python3 build.py
 
+      - name: Commit artifacts to release branch
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout -b release || git checkout release
+          git add 16-kb.srs 16-kb-cidrs.txt
+          git commit -m "chore: auto-update lists" || echo "No changes to commit"
+          git push -f origin release
+
       - name: Create or Update Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: "latest" # Фиксированный тег (удобно для постоянных ссылок)
           name: "16-kb Routing Rules (Auto-update)"
-          body: "Автоматическая ночная сборка актуальных 16-kb CIDR подсетей (SRS + CIDR + Плоский список IP)."
+          body: "Автоматическая ночная сборка актуальных 16-kb CIDR подсетей (SRS + CIDR)."
           files: |
             16-kb.srs
             16-kb-cidrs.txt
-            16-kb-ips.txt
           make_latest: true
