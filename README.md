@@ -8,19 +8,43 @@
 
 ### 1. jsDelivr CDN (⚡ Рекомендуется)
 Самый быстрый и надежный CDN. Берет файлы напрямую из ветки `release`.
-* **SRS:** `https://cdn.jsdelivr.net/gh/KweezyCode/16-kb-lists@release/16-kb.srs`
-* **CIDRs:** `https://cdn.jsdelivr.net/gh/KweezyCode/16-kb-lists@release/16-kb-cidrs.txt`
+
+**16-kb:**
+* **SRS:** `https://cdn.jsdelivr.net/gh/KweezyCode/srs-lists@release/16-kb.srs`
+* **CIDRs:** `https://cdn.jsdelivr.net/gh/KweezyCode/srs-lists@release/16-kb-cidrs.txt`
+
+**Telegram:**
+* **SRS:** `https://cdn.jsdelivr.net/gh/KweezyCode/srs-lists@release/telegram.srs`
+* **CIDRs:** `https://cdn.jsdelivr.net/gh/KweezyCode/srs-lists@release/telegram-cidrs.txt`
 
 ### 2. GHProxy (Зеркало релизов)
 Проксирует официальные релизы (Attachments) GitHub.
-* **SRS:** `https://gh-proxy.com/https://github.com/KweezyCode/16-kb-lists/releases/download/latest/16-kb.srs`
-* **CIDRs:** `https://gh-proxy.com/https://github.com/KweezyCode/16-kb-lists/releases/download/latest/16-kb-cidrs.txt`
+
+**16-kb:**
+* **SRS:** `https://gh-proxy.com/https://github.com/KweezyCode/srs-lists/releases/download/latest/16-kb.srs`
+* **CIDRs:** `https://gh-proxy.com/https://github.com/KweezyCode/srs-lists/releases/download/latest/16-kb-cidrs.txt`
+
+**Telegram:**
+* **SRS:** `https://gh-proxy.com/https://github.com/KweezyCode/srs-lists/releases/download/latest/telegram.srs`
+* **CIDRs:** `https://gh-proxy.com/https://github.com/KweezyCode/srs-lists/releases/download/latest/telegram-cidrs.txt`
 
 ### 3. FastGit / Модифицированный Raw
 Дополнительные запасные варианты, если основные оказались недоступны:
-* **SRS:** `https://raw.fastgit.org/KweezyCode/16-kb-lists/release/16-kb.srs`
-* **CIDRs:** `https://raw.fastgit.org/KweezyCode/16-kb-lists/release/16-kb-cidrs.txt`
+
+**16-kb:**
+* **SRS:** `https://raw.fastgit.org/KweezyCode/srs-lists/release/16-kb.srs`
+* **CIDRs:** `https://raw.fastgit.org/KweezyCode/srs-lists/release/16-kb-cidrs.txt`
+
+**Telegram:**
+* **SRS:** `https://raw.fastgit.org/KweezyCode/srs-lists/release/telegram.srs`
+* **CIDRs:** `https://raw.fastgit.org/KweezyCode/srs-lists/release/telegram-cidrs.txt`
 
 ### 4. Официальные ссылки GitHub (В случае работы через VPN)
-* **Release SRS:** `https://github.com/KweezyCode/16-kb-lists/releases/download/latest/16-kb.srs`
-* **Raw Content:** `https://raw.githubusercontent.com/KweezyCode/16-kb-lists/release/16-kb.srs`
+
+**16-kb:**
+* **Release SRS:** `https://github.com/KweezyCode/srs-lists/releases/download/latest/16-kb.srs`
+* **Raw Content:** `https://raw.githubusercontent.com/KweezyCode/srs-lists/release/16-kb.srs`
+
+**Telegram:**
+* **Release SRS:** `https://github.com/KweezyCode/srs-lists/releases/download/latest/telegram.srs`
+* **Raw Content:** `https://raw.githubusercontent.com/KweezyCode/srs-lists/release/telegram.srs`

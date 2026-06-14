@@ -1,22 +1,23 @@
-name: Build and Release 16-kb CIDR Rules
+name: Build and Release Routing Rules
 
 on:
   schedule:
-    - cron: "0 2 * * *" # Автоматический запуск каждый день в 2:00 ночи (UTC)
-  workflow_dispatch: # Позволяет запускать Action вручную по кнопке
+    - cron: "0 2 * * 1"   # каждую неделю в 02:00 UTC
+  workflow_dispatch:        # ручной запуск
   push:
     branches:
       - master
       - main
 
 permissions:
-  contents: write # Разрешение на создание релизов
+  contents: write
 
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout your repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Python
@@ -29,26 +30,40 @@ jobs:
           bash <(curl -fsSL https://sing-box.app/deb-install.sh)
           sing-box version
 
-      - name: Generate SRS, IPs and CIDRs
-        run: |
-          python3 build.py
+      - name: Build all rule sets
+        run: python3 build.py
 
+      - name: List generated artifacts
+        run: ls -lh *.srs *-cidrs.txt
+
+      # Пушим артефакты в ветку release (для jsDelivr CDN и raw.githubusercontent)
       - name: Commit artifacts to release branch
         run: |
-          git config --global user.name "github-actions[bot]"
+          git config --global user.name  "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git checkout -b release || git checkout release
-          git add 16-kb.srs 16-kb-cidrs.txt
-          git commit -m "chore: auto-update lists" || echo "No changes to commit"
+          git checkout -b release 2>/dev/null || git checkout release
+          git add *.srs *-cidrs.txt
+          git commit -m "chore: auto-update lists [$(date -u '+%Y-%m-%d %H:%M UTC')]" \
+            || echo "No changes to commit"
           git push -f origin release
 
-      - name: Create or Update Release
+      # Публикуем те же файлы как GitHub Release (для gh-proxy и прямых ссылок)
+      - name: Create or Update GitHub Release
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: "latest" # Фиксированный тег (удобно для постоянных ссылок)
-          name: "16-kb Routing Rules (Auto-update)"
-          body: "Автоматическая ночная сборка актуальных 16-kb CIDR подсетей (SRS + CIDR)."
+          tag_name: latest
+          name: "Routing Rules — Auto-update"
+          body: |
+            Автоматическая сборка актуальных CIDR-правил маршрутизации.
+            Обновляется ежедневно в **02:00 UTC**.
+
+            | Набор | Описание | SRS | TXT |
+            |---|---|---|---|
+            | `16-kb` | CDN-подсети из 16-kb DPI-детектора | [16-kb.srs](../../releases/download/latest/16-kb.srs) | [16-kb-cidrs.txt](../../releases/download/latest/16-kb-cidrs.txt) |
+            | `telegram` | Официальные CIDR Telegram | [telegram.srs](../../releases/download/latest/telegram.srs) | [telegram-cidrs.txt](../../releases/download/latest/telegram-cidrs.txt) |
+
+            > Новый набор правил добавляется через одну строку в `SOURCES` в `build.py`.
           files: |
-            16-kb.srs
-            16-kb-cidrs.txt
+            *.srs
+            *-cidrs.txt
           make_latest: true
